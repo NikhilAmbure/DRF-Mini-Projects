@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users online</title>
+</head>
+<body>
+    <h1>Users Online: <span id="count"></span></h1>
+</body>
+<script>
+    let socket = new WebSocket(`ws://localhost:8000/ws/main/`);
+
+    socket.onopen = function(e){
+        console.log("Websocket Connected!");
+    }
+
+    socket.onmessage = function(e){
+        const data = JSON.parse(e.data);
+
+        if (data.count) {
+            const countSpan = document.getElementById('count');
+            countSpan.innerText = data.count;
+        }
+    }
+
+    socket.onclose = function(e){
+        console.log("Websocket Disconnected!");
+    }
+</script>
+</html>
