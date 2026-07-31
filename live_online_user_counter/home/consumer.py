@@ -18,7 +18,6 @@ class OnlineUserConsumer(WebsocketConsumer):
         )
         
         self.accept()
-
         
         count += 1
 
